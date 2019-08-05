@@ -5,13 +5,14 @@ php:
   - 7.3
 
 before_install:
+  - php -r 'phpinfo();'
   - echo 'opcache.enable_cli = 1' > $(php -r 'echo PHP_CONFIG_FILE_SCAN_DIR;')/cachetool.ini
 
 install:
   - composer install
 
 script:
-  - $(composer config bin-dir)/phpunit --coverage-clover=coverage.clover
+  - $(composer config bin-dir)/phpunit -v --coverage-clover=coverage.clover
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
